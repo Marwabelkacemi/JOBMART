@@ -1,0 +1,52 @@
+name: jobmart
+description: "Application JobMart (Front-End Only)"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Gestion d'état
+  provider: ^6.0.5
+  
+  # Navigation
+  go_router: ^12.0.0  # Pour une navigation avancée
+  
+  # UI
+  cupertino_icons: ^1.0.8
+  flutter_svg: ^2.0.7  # Pour les SVG
+  cached_network_image: ^3.3.0  # Pour les images réseau
+  
+  # Animations
+  flutter_animate: ^4.1.1
+
+  # Firebase
+  firebase_auth: ^5.5.2
+  cloud_firestore: ^5.6.6
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  
+  #assets:
+   # - assets/images/
+   # - assets/icons/
+   # - assets/animations/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: fonts/Poppins-Bold.ttf
+        - asset: fonts/Poppins-Italic.ttf
+        - asset: fonts/Poppins-SemiBold.ttf
+        - asset: fonts/Poppins-Medium.ttf
+    
