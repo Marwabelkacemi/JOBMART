@@ -30,7 +30,7 @@ class Introduction2Screen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Image illustrative
+                // Image centrale
                 Container(
                   width: 250,
                   height: 250,
@@ -44,65 +44,62 @@ class Introduction2Screen extends StatelessWidget {
                   ),
                 ),
                 
-                // Titre
-                Text(
-                  'Trouvez les meilleurs talents',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 40),
-                
-                // Bouton de navigation
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                // Contenu texte
+                Column(
+                  children: [
+                    // Titre
+                    Text(
+                      'Trouvez les meilleurs talents',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    elevation: 5,
-                  ),
-                  onPressed: () {
-                    // Navigation vers l'écran suivant
-                    Navigator.pushReplacementNamed(context, '/intro3');
-                  },
-                  child: Text(
-                    'Continuer',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      fontWeight: FontWeight.w600,
+                    const SizedBox(height: 40),
+                    
+                    // Bouton de navigation
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        elevation: 5,
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/intro3');
+                      },
+                      child: Text(
+                        'Continuer',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                
-                // Option: Skip button
-                TextButton(
-                  onPressed: () {
-                    // Aller directement à l'accueil
-                    Navigator.pushReplacementNamed(context, '/home');
-                  },
-                  child: Text(
-                    'Passer',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                    
+                    // Option: Skip button
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/home');
+                      },
+                      child: Text(
+                        'Passer',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
           ),
         ],
-      ),
-      
-      // Option: Bouton flottant pour navigation
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushReplacementNamed(context, '/intro3'),
-        child: const Icon(Icons.arrow_forward),
       ),
     );
   }

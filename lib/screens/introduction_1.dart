@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:jobmart/routes.dart';
 
@@ -11,12 +13,32 @@ class Introduction1Screen extends StatefulWidget {
 class _Introduction1ScreenState extends State<Introduction1Screen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _animation;
+  late Animation<double> _sizeAnimation;
+  late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
     super.initState();
-    // Délai de 4 secondes avant la navigation
+    
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    )..repeat(reverse: true);
+
+    _sizeAnimation = Tween<double>(begin: 220, end: 280).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    _opacityAnimation = Tween<double>(begin: 0.3, end: 0.6).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
+      ),
+    );
+
     Future.delayed(const Duration(seconds: 4), () {
       if (mounted) {
         Navigator.pushReplacementNamed(context, AppRoutes.intro2);
@@ -36,19 +58,17 @@ class _Introduction1ScreenState extends State<Introduction1Screen>
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
-          // Cercle animé bleu avec "JobMart"
+          // Cercle animé pulsant
           Center(
             child: AnimatedBuilder(
-              animation: _animation,
+              animation: _controller,
               builder: (context, child) {
                 return Container(
-                  width: _animation.value,
-                  height: _animation.value,
+                  width: _sizeAnimation.value,
+                  height: _sizeAnimation.value,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.blue.withOpacity(
-                      0.3 + 0.3 * (_animation.value - 220) / 60,
-                    ),
+                    color: Colors.blue.withOpacity(_opacityAnimation.value),
                   ),
                   child: const Center(
                     child: Text(
@@ -72,8 +92,7 @@ class _Introduction1ScreenState extends State<Introduction1Screen>
             child: Padding(
               padding: const EdgeInsets.all(30),
               child: TextButton(
-                onPressed: () =>
-                    Navigator.pushReplacementNamed(context, '/intro2'),
+                onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.intro2),
                 child: Text(
                   'Commencer plus tard',
                   style: TextStyle(

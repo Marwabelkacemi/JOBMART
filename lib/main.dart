@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jobmart/routes.dart';
-import 'package:jobmart/screens/introduction_1.dart';
 import 'package:jobmart/theme/app_theme.dart';
 
 void main() => runApp(const MyApp());

@@ -30,7 +30,6 @@ class AppTheme {
         primary: const Color(0xFF2962FF),
         secondary: const Color(0xFF00B0FF),
         surface: Colors.grey[900]!,
-        background: Colors.black,
       ),
       scaffoldBackgroundColor: Colors.grey[900]!,
       textTheme: _textTheme(Colors.white70),
