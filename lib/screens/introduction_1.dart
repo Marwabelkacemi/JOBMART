@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:jobmart/routes.dart';
 
@@ -15,6 +17,9 @@ class _Introduction1ScreenState extends State<Introduction1Screen>
   late AnimationController _controller;
   late Animation<double> _sizeAnimation;
   late Animation<double> _opacityAnimation;
+  late Animation<double> _rotationAnimation;
+  late Animation<Color?> _gradientAnimation;
+  late Animation<Offset> _particleAnimation;
 
   @override
   void initState() {
@@ -22,24 +27,44 @@ class _Introduction1ScreenState extends State<Introduction1Screen>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 2500),
     )..repeat(reverse: true);
 
     _sizeAnimation = Tween<double>(begin: 220, end: 320).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Curves.easeInOut,
+        curve: Curves.easeInOutQuad,
       ),
     );
 
-    _opacityAnimation = Tween<double>(begin: 0.3, end: 0.6).animate(
+    _opacityAnimation = Tween<double>(begin: 0.4, end: 0.8).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Curves.easeInOut,
+        curve: Curves.easeInOutBack,
       ),
     );
 
-    Future.delayed(const Duration(seconds: 4), () {
+    _rotationAnimation = Tween<double>(begin: 0, end: 2 * 3.1416).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOutCirc,
+      ),
+    );
+
+    _gradientAnimation = ColorTween(
+      begin: Colors.blue.withOpacity(0.6),
+      end: const Color.fromARGB(255, 81, 40, 193).withOpacity(0.8),
+    ).animate(_controller);
+
+    _particleAnimation = Tween<Offset>(
+      begin: const Offset(0, 0),
+      end: const Offset(2.5, 0),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOutQuad,
+    ));
+
+    Future.delayed(const Duration(seconds: 5), () {
       if (mounted) {
         Navigator.pushReplacementNamed(context, AppRoutes.intro2);
       }
@@ -52,33 +77,83 @@ class _Introduction1ScreenState extends State<Introduction1Screen>
     super.dispose();
   }
 
+  Widget _buildAnimatedParticles() {
+    return Stack(
+      children: List.generate(8, (index) {
+        final angle = (index / 8) * 2 * 3.1416;
+        return AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return Transform.translate(
+              offset: Offset(
+                _particleAnimation.value.dx * 50 * cos(angle),
+                _particleAnimation.value.dy * 50 * sin(angle),
+              ),
+              child: Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: _gradientAnimation.value?.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                ),
+              ),
+            );
+          },
+        );
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
-          // Cercle animé pulsant
+          // Cercle principal avec effets combinés
           Center(
             child: AnimatedBuilder(
               animation: _controller,
               builder: (context, child) {
-                return Container(
-                  width: _sizeAnimation.value,
-                  height: _sizeAnimation.value,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.blue.withOpacity(_opacityAnimation.value),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'JobMart',
-                      style: TextStyle(
-                        fontFamily: 'Poppins_Italic',
-                        fontSize: 30,
-                        color: Color.fromARGB(255, 48, 8, 159),
-                        fontWeight: FontWeight.w500,
+                return Transform.rotate(
+                  angle: _rotationAnimation.value,
+                  child: Container(
+                    width: _sizeAnimation.value,
+                    height: _sizeAnimation.value,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: RadialGradient(
+                        colors: [
+                          _gradientAnimation.value!,
+                          _gradientAnimation.value!.withOpacity(0.3),
+                        ],
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: _gradientAnimation.value!.withOpacity(0.2),
+                          blurRadius: 40,
+                          spreadRadius: 10,
+                        ),
+                      ],
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        _buildAnimatedParticles(),
+                        Transform.scale(
+                          scale: 1 + (_controller.value * 0.1),
+                          child: const Text(
+                            'JobMart',
+                            style: TextStyle(
+                              fontFamily: 'Poppins_Italic',
+                              fontSize: 34,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 );
@@ -86,7 +161,7 @@ class _Introduction1ScreenState extends State<Introduction1Screen>
             ),
           ),
 
-          // Bouton "Commencer plus tard"
+          // Bouton "Commencer plus tard" (inchangé)
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
