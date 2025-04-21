@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _screens = [
       HomeContent(showContactOptions: _showContactOptions),
-     // const Center(child: Text('Marketplace')),
+      const Center(child: Text('Marketplace')),
       const Center(child: Text('Ajouter')),
       const Center(child: Text('Notifications')),
       const Center(child: Text('Profil')),
