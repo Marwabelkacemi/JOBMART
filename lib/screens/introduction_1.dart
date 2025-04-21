@@ -19,13 +19,13 @@ class _Introduction1ScreenState extends State<Introduction1Screen>
   @override
   void initState() {
     super.initState();
-    
+
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2000),
     )..repeat(reverse: true);
 
-    _sizeAnimation = Tween<double>(begin: 220, end: 280).animate(
+    _sizeAnimation = Tween<double>(begin: 220, end: 320).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.easeInOut,
@@ -75,8 +75,8 @@ class _Introduction1ScreenState extends State<Introduction1Screen>
                       'JobMart',
                       style: TextStyle(
                         fontFamily: 'Poppins_Italic',
-                        fontSize: 26,
-                        color: Colors.white,
+                        fontSize: 30,
+                        color: Color.fromARGB(255, 48, 8, 159),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -92,11 +92,13 @@ class _Introduction1ScreenState extends State<Introduction1Screen>
             child: Padding(
               padding: const EdgeInsets.all(30),
               child: TextButton(
-                onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.intro2),
+                onPressed: () =>
+                    Navigator.pushReplacementNamed(context, AppRoutes.intro2),
                 child: Text(
                   'Commencer plus tard',
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                    color:
+                        Theme.of(context).colorScheme.primary.withOpacity(0.6),
                     fontSize: 16,
                   ),
                 ),

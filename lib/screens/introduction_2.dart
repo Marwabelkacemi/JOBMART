@@ -38,7 +38,7 @@ class Introduction2Screen extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     image: const DecorationImage(
-                      image: AssetImage('assets/intro2.jpg'),
+                      image: AssetImage('images/travaille.png'),
                       fit: BoxFit.cover,
                     ),
                   ),

@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _screens = [
       HomeContent(showContactOptions: _showContactOptions),
-      const Center(child: Text('Marketplace')),
+     // const Center(child: Text('Marketplace')),
       const Center(child: Text('Ajouter')),
       const Center(child: Text('Notifications')),
       const Center(child: Text('Profil')),
@@ -51,13 +51,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      title: Text(
-        'JobMart',
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-          color: Theme.of(context).colorScheme.primary,
-          fontWeight: FontWeight.bold,
+      title: Center(
+  child: Text(
+    'JobMart',
+    textAlign: TextAlign.center,
+    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+      color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+      fontWeight: FontWeight.w900, // Épaisseur plus prononcée
+      fontStyle: FontStyle.italic, // Ajout d'une légère inclinaison
+      letterSpacing: 1.5, // Espacement entre les lettres
+      shadows: [
+        Shadow(
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.4),
+          blurRadius: 4,
+          offset: const Offset(2, 2),
         ),
-      ),
+      ],
+      background: Paint()
+        ..color = Theme.of(context).colorScheme.surfaceVariant
+        ..strokeWidth = 20
+        ..style = PaintingStyle.stroke,
+    ),
+  ),
+),
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       elevation: 1,
       actions: [

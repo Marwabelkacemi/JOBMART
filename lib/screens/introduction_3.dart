@@ -48,7 +48,7 @@ class Introduction3Screen extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: const DecorationImage(
-                        image: AssetImage('assets/intro3.png'),
+                        image: AssetImage('images/marketplace.png'),
                         fit: BoxFit.contain,
                       ),
                     ),
